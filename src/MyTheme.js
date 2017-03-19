@@ -1,14 +1,24 @@
 import React, { Component, PropTypes } from 'react';
+import Theme from './Theme'
 
 class MyTheme extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.theme = new Theme(this.props.color)
+  }
+
   static childContextTypes = {
-    color: PropTypes.string
+    theme: PropTypes.object
   }
 
   getChildContext() {
     return {
-      color: this.props.color
+      theme: this.theme
     }
+  }
+
+  componentWillReceiveProps(next) {
+    this.theme.setColor(next.color)
   }
 
   render() {

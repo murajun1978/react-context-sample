@@ -1,13 +1,21 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-const TextLabel = ({ children }, context) => (
-  <div style={{ color: context.color }}>
-    { children }
-  </div>
-);
+class TextLabel extends Component {
+  componentDidMount() {
+    this.context.theme.subscribe(() => this.forceUpdate());
+  }
+
+  render() {
+    return (
+      <div style={{ color: this.context.theme.color }}>
+        { this.props.children }
+      </div>
+    );
+  }
+}
 
 TextLabel.contextTypes = {
-  color: PropTypes.string
+  theme: PropTypes.object
 }
 
 export default TextLabel;
